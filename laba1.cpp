@@ -3,34 +3,60 @@
 * Date 25.09.2025   *
 * Option 15         *
 ********************/
-
 #include <iostream>
 #include <cmath>
+#include <iomanip>
+
+using namespace std;
 
 int main() {
-    // Объявление переменных
-    int mintC = 600;
-    int maxtC = 1100;
+    int mintC = 0;
+    int maxtC = 0;
+    int step = 0;
 
-    double T, P; // объявление переменных
+    cout << "Enter the minimum temperature in degrees Celsius: ";
+    cin >> mintC;
+    cout << "Enter the maximum temperature in degrees Celsius: ";
+    cin >> maxtC;
+    cout << "Enter temperature change step: ";
+    cin >> step;
 
-    // Цикл с предусловием 
-    int tempC = mintC;
-    while (tempC <= maxtC) {
-        T = tempC + 273; // только расчет
-        P = pow(10, (-8920.0 / T + 7.54)); // расчёт
-        std::cout << "Temperature: " << tempC << " °C, Pco₂: " << P  << std::endl;
-        tempC += 100; 
+    if (mintC > maxtC || step <= 0) {
+        cout << "Incorrect input data." << endl;
+        return 1;
     }
 
-    // Цикл с постусловием 
-    int tempC2 = mintC;
+    int currentC;
+
+    // Loop with precondition
+    currentC = mintC;
+    while (currentC <= maxtC) {
+        // Declare variables for calculations
+        double T, Pco2;
+
+        // Calculations
+        T = currentC + 273;
+        Pco2 = pow(10, (-8920.0 / T + 7.54));
+
+        cout << "Precondition loop: " << currentC << " °C, Pco₂: "
+             << fixed << setprecision(6) << Pco2 << " atm" << endl;
+
+        currentC += step;
+    }
+
+    // Loop with postcondition
+    currentC = mintC;
     do {
-        T = tempC2 + 273; 
-        P = pow(10, (-8920.0 / T + 7.54)); 
-        std::cout << "[do-while] Temperature: " << tempC2 << " °C, Pco₂: " << P << " atm" << std::endl;
-        tempC2 += 100; 
-    } while (tempC2 <= maxtC);
+        double T, Pco2;
+
+        T = currentC + 273;
+        Pco2 = pow(10, (-8920.0 / T + 7.54));
+
+        cout << "Postcondition loop: " << currentC << " °C, Pco₂: "
+             << fixed << setprecision(6) << Pco2 << " atm" << endl;
+
+        currentC += step;
+    } while (currentC <= maxtC);
 
     return 0;
 }
