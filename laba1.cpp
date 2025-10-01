@@ -10,53 +10,48 @@
 using namespace std;
 
 int main() {
-    int mintC = 0;
-    int maxtC = 0;
-    int step = 0;
+  int mintC = 0;
+  int maxtC = 0;
+  int step = 0;
 
-    cout << "Enter the minimum temperature in degrees Celsius: ";
-    cin >> mintC;
-    cout << "Enter the maximum temperature in degrees Celsius: ";
-    cin >> maxtC;
-    cout << "Enter temperature change step: ";
-    cin >> step;
+  double T, Pco2;  // Declaration of variables outside the loop
 
-    if (mintC > maxtC || step <= 0) {
-        cout << "Incorrect input data." << endl;
-        return 1;
-    }
+  cout << "Enter the minimum temperature in degrees Celsius: ";
+  cin >> mintC;
+  cout << "Enter the maximum temperature in degrees Celsius: ";
+  cin >> maxtC;
+  cout << "Enter temperature change step: ";
+  cin >> step;
 
-    int currentC;
+  if (mintC > maxtC || step <= 0) {
+    cout << "Incorrect input data." << endl;
+    return 1;
+  }
 
-    // Loop with precondition
-    currentC = mintC;
-    while (currentC <= maxtC) {
-        // Declare variables for calculations
-        double T, Pco2;
+  int currentC;
 
-        // Calculations
-        T = currentC + 273;
-        Pco2 = pow(10, (-8920.0 / T + 7.54));
+  currentC = mintC;
+  while (currentC <= maxtC) {
+    
+    T = currentC + 273;
+    Pco2 = pow(10.0, (-8920.0 / T + 7.54));
 
-        cout << "Precondition loop: " << currentC << " °C, Pco₂: "
-             << fixed << setprecision(6) << Pco2 << " atm" << endl;
+    cout << "T: " << currentC << " °C, Pco₂: "
+         << fixed << setprecision(6) << Pco2 <<  endl;
 
-        currentC += step;
-    }
+    currentC += step;
+  }
 
-    // Loop with postcondition
-    currentC = mintC;
-    do {
-        double T, Pco2;
+  currentC = mintC;
+  do {
+    T = currentC + 273;
+    Pco2 = pow(10.0, (-8920.0 / T + 7.54));  // 10, -> 10.0
 
-        T = currentC + 273;
-        Pco2 = pow(10, (-8920.0 / T + 7.54));
+    cout << "T: " << currentC << " °C, Pco₂: "
+         << fixed << setprecision(6) << Pco2 <<  endl;
 
-        cout << "Postcondition loop: " << currentC << " °C, Pco₂: "
-             << fixed << setprecision(6) << Pco2 << " atm" << endl;
+    currentC += step;
+  } while (currentC <= maxtC);
 
-        currentC += step;
-    } while (currentC <= maxtC);
-
-    return 0;
+  return 0;
 }
